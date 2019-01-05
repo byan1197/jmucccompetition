@@ -1,5 +1,31 @@
 .App {
   text-align: center;
+  background-color: #D8E1E8;
+  height: 100vh;
+}
+
+.circular-btn {
+  /* border-radius: 0;
+  border: none; */
+}
+
+.nav-link:hover{
+  transition: 0.2s;
+  transform: translateY(-2px);
+  transition-timing-function: ease-in;
+  color: #9E2B0E !important;
+  cursor: pointer;
+}
+
+.move-on-hover:hover{
+  cursor: pointer;
+  transition: 0.2s;
+  transform: translateY(-5px);
+  transition-timing-function: ease-in;
+}
+
+.app-content{
+  padding-top: 5em;
 }
 
 .App-logo {
@@ -29,4 +55,14 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Hide HTML5 Up and Down arrows. */
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+ 
+input[type="number"] {
+    -moz-appearance: textfield;
 }
