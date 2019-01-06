@@ -27,7 +27,7 @@ app.use(cors())
 app.use(morgan('dev'));
 
 var corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:4000',
     allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With', 'Accept', 'token', 'content-type'],
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
@@ -38,17 +38,17 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-if (env === "production")
-    app.use(app.static("build"));
+// if (env === "production")
+app.use(express.static("build"));
 
 // END OF EXPRESS USE
 
 //ROUTES
-app.use('/team', teamRoutes);
-app.use('/report', reportRoutes);
-app.use('/match', matchRoutes);
-app.use('/judge', judgeRoutes);
-app.delete('/db/dropall', (req, res) => {
+app.use('/api/team', teamRoutes);
+app.use('/api/report', reportRoutes);
+app.use('/api/match', matchRoutes);
+app.use('/api/judge', judgeRoutes);
+app.delete('/api/db/dropall', (req, res) => {
     mongoose.createConnection(config.mongo.url).dropDatabase((err, results) => {
         if (err)
             return res.status(500).json({ error: { message: 'Could not clear database' } });
