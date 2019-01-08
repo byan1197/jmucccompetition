@@ -27,7 +27,7 @@ app.use(cors())
 app.use(morgan('dev'));
 
 var corsOptions = {
-    origin: 'http://localhost:4000',
+    origin: config.address + '/' + config.port,
     allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With', 'Accept', 'token', 'content-type'],
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
