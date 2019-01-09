@@ -3,7 +3,6 @@ var http = require('http')
 var https = require('https')
 var bodyParser = require('body-parser');
 var env = process.env.NODE_ENV || "development";
-var config = require('./config.json');
 var cors = require('cors');
 
 const app = express();
@@ -15,7 +14,7 @@ const matchRoutes = require('./api/routes/Match')
 const judgeRoutes = require('./api/routes/Judge')
 
 // MONGO
-mongoose.connect(config.mongo.url, { useNewUrlParser: true })
+mongoose.connect(process.env.mongourl, { useNewUrlParser: true })
 // END MONGO
 
 // EXPRESS USE
@@ -48,7 +47,7 @@ app.use('/api/report', reportRoutes);
 app.use('/api/match', matchRoutes);
 app.use('/api/judge', judgeRoutes);
 app.delete('/api/db/dropall', (req, res) => {
-    mongoose.createConnection(config.mongo.url).dropDatabase((err, results) => {
+    mongoose.createConnection(process.env.mongourl).dropDatabase((err, results) => {
         if (err)
             return res.status(500).json({ error: { message: 'Could not clear database' } });
         return res.status(201).json({ success: { message: 'Cleared database' } });

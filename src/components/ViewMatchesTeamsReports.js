@@ -156,7 +156,6 @@ class ViewMatchesTeamsReports extends Component {
                 return;
             }
             if (res.success) {
-                console.log(res.success)
                 toast.success(res.success.message);
                 this.fetchItemLists(type)
             }
@@ -195,7 +194,6 @@ class ViewMatchesTeamsReports extends Component {
                                             {
                                                 Object.keys(item).map((key, key_i) => {
                                                     if (key === 'Match Complete') {
-                                                        console.log(item[key])
                                                         return (
                                                             <td key={key_i}>
                                                                 <Input type='checkbox' checked={item[key]} onChange={e => { this.handleCheck(e, item._id) }} />
