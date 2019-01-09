@@ -52,7 +52,8 @@ router.post('/create', (req, res) => {
                 _id: new mongoose.Types.ObjectId(),
                 team1: results[0],
                 team2: results[1],
-                complete: false
+                complete: false,
+                day: req.body.day
             })
 
             match.save()
@@ -110,7 +111,8 @@ router.post('/bracketize', (req, res) => {
                     _id: new mongoose.Types.ObjectId(),
                     team1: shufTeams[i]._id,
                     team2: shufTeams[i + 1]._id,
-                    complete: false
+                    complete: false,
+                    day: 1
                 })
 
                 teamPromiseArr.push(new Promise((resolve, reject) => {

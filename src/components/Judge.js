@@ -28,9 +28,11 @@ class Judge extends Component {
                         _id: m._id,
                         team1: m.team1.judgeName,
                         team2: m.team2.judgeName,
-                        complete: m.complete
+                        complete: m.complete,
+                        day: m.day
                     }
                 });
+                matches.sort((a, b) => b.day - a.day)
                 this.setState({ matches: matches })
 
             })
@@ -49,7 +51,8 @@ class Judge extends Component {
                                 <Card className='shadow my-3 move-on-hover'>
                                     <CardBody>
                                         <CardTitle>
-                                            <h3>Team {m.team1} <br /> -vs- <br /> Team {m.team2}</h3>
+                                            <p>Day {m.day}</p>
+                                            <h2>Team {m.team1} <br /> -vs- <br /> Team {m.team2}</h2>
                                         </CardTitle>
                                         <Link to={{ pathname: '/score', state: { ...m } }}><Button block>Judge this match</Button></Link>
                                     </CardBody>

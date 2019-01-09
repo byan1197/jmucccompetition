@@ -16,7 +16,6 @@ class AddTeam extends Component {
         super()
         this.state = {
             teamName: '',
-            university: '',
             judgeName: '',
         }
     }
@@ -35,7 +34,6 @@ class AddTeam extends Component {
         Fetcher.addTeam({
             teamName: this.state.teamName,
             judgeName: this.state.judgeName,
-            university: this.state.university
         }).then(res => {
             if (res.error) {
                 toast.error(res.error.message)
@@ -44,7 +42,6 @@ class AddTeam extends Component {
             toast.success(res.success.message)
             this.setState({
                 teamName: '',
-                university: '',
                 judgeName: '',
             })
         })
@@ -56,22 +53,16 @@ class AddTeam extends Component {
                 <h3>Add a team</h3>
                 <Container>
                     <Row>
-                        <Col md={4} sm={12}>
+                        <Col md={6} sm={12}>
                             <Label>
                                 Team Name:
                                 <Input value={this.state.teamName} onChange={e => { this.handleInputChange(e, 'teamName') }}></Input>
                             </Label>
                         </Col>
-                        <Col md={4} sm={12}>
+                        <Col md={6} sm={12}>
                             <Label>
                                 Team Alias (Judges will see this):
                                 <Input value={this.state.judgeName} onChange={e => { this.handleInputChange(e, 'judgeName') }}></Input>
-                            </Label>
-                        </Col>
-                        <Col md={4} sm={12}>
-                            <Label>
-                                University:
-                                <Input value={this.state.university} onChange={e => { this.handleInputChange(e, 'university') }}></Input>
                             </Label>
                         </Col>
                     </Row>

@@ -17,7 +17,8 @@ class AddMatch extends Component {
         this.state = {
             team1: '',
             team2: '',
-            teamList: []
+            teamList: [],
+            day: 0
         }
     }
     componentDidMount() {
@@ -37,10 +38,17 @@ class AddMatch extends Component {
         this.setState(newState)
     }
 
+    changeDay = e => {
+        this.setState({
+            day: e.target.value
+        })
+    }
+
     submit = () => {
         var body = {
             team1Name: this.state.team1,
-            team2Name: this.state.team2
+            team2Name: this.state.team2,
+            day: this.state.day
         }
         Fetcher.createMatch(body).then(res => {
             if (res.error) {
@@ -57,7 +65,7 @@ class AddMatch extends Component {
                 <h3>Add match</h3>
                 <Container>
                     <Row>
-                        <Col md={6} sm={12}>
+                        <Col md={4} sm={12}>
                             <Label>
                                 Team 1:
                                 <Input type='select' onChange={e => { this.selectTeam(e, 1) }} value={this.state.team1}>
@@ -65,12 +73,18 @@ class AddMatch extends Component {
                                 </Input>
                             </Label>
                         </Col>
-                        <Col md={6} sm={12}>
+                        <Col md={4} sm={12}>
                             <Label>
                                 Team 2:
                                 <Input type='select' onChange={e => { this.selectTeam(e, 2) }} value={this.state.team2}>
                                     {this.state.teamList.map((t, i) => <option disabled={this.state.team1 === t.teamName || this.state.team2 === t.teamName} key={i}>{t.teamName}</option>)}
                                 </Input>
+                            </Label>
+                        </Col>
+                        <Col md={4} sm={12}>
+                            <Label>
+                                Day:
+                                <Input onChange={e => { this.changeDay(e) }} value={this.state.day}/>
                             </Label>
                         </Col>
                     </Row>

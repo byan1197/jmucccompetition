@@ -7,12 +7,43 @@ const Judge = require('../models/Judge')
 
 router.get('/', (req, res) => {
 
-    Report.find()
-        .populate('judge')
-        .exec((err, docs) => {
-            if (err)
-                return res.status(500).json({ error: err })
-            return res.status(201).json(docs);
+    Match.find()
+        .populate('team1 team2')
+        .exec((mErr, matches) => {
+
+            if (mErr)
+                return res.status(500).json({ error: mErr })
+
+            var newMatches = {};
+            matches.forEach(m => {
+                newMatches[m._id.toString()] = {
+                    team1: m.team1.teamName,
+                    team2: m.team2.teamName,
+                    day: m.day
+                }
+            })
+
+            console.log(newMatches)
+
+            Report.find()
+                .populate('judge')
+                .exec((err, docs) => {
+                    if (err)
+                        return res.status(500).json({ error: err })
+
+                    var data = docs.map(d => {
+                        console.log(newMatches[d.match.toString()])
+                        return {
+                            ...d,
+                            info: newMatches[d.match.toString()]
+                        }
+                    })
+
+                    console.log('data', data)
+                    
+                    return res.status(201).json(data);
+                })
+
         })
 })
 

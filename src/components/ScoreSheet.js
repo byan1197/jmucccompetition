@@ -75,7 +75,10 @@ class ScoreSheet extends Component {
             pointPool: 7,
             team1Points: 4,
             team2Points: 4,
-            selectedJudge: this.state.judges[0]
+            selectedJudge: this.state.judges[0]? this.state.judges[0].judgeName : 'JUDGE NAME',
+            judgeSign: false,
+            loading: false,
+            complete: false
         })
     }
 
@@ -148,8 +151,11 @@ class ScoreSheet extends Component {
                     <CardBody>
                         <Container>
                             <Row>
-                                <Col md={2}>
+                                <Col md={3}>
                                     <Link to='/'><Button outline className='my-2'>Back to matches</Button></Link>
+                                </Col>
+                                <Col style={{textAlign: 'right'}} md={{size: 3, offset: 6}}>
+                                    <p>Day {this.props.location.state.day} match</p>
                                 </Col>
                             </Row>
                             <Row>
@@ -179,7 +185,7 @@ class ScoreSheet extends Component {
                                 </Col>
                                 <Col md={12} sm={12}>
                                     <Label check><Input onChange={e => { this.judgeSign(e) }} type='checkbox' />
-                                        I hereby willingly submit blah blah blah
+                                        I, {this.state.selectedJudge}, hereby willingly submit this score.
                                     </Label>
                                 </Col>
                                 <Col className='my-3' md={{ size: 3, offset: 3 }} sm={12}>

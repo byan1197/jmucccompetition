@@ -30,7 +30,6 @@ router.post('/create', (req, res) => {
             _id: new mongoose.Types.ObjectId(),
             teamName: req.body.teamName,
             judgeName: req.body.judgeName,
-            university: req.body.university || ''
         })
 
         team.save()
