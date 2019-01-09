@@ -73,7 +73,7 @@ app.use((error, req, res, next) => {
 
 
 /* ACTUAL SERVER STUFFS */
-var protocol = env === 'production' ? https : http;
+var protocol = http;
 var port = env === 'production' ? process.env.PORT : 4000;
 
 protocol.createServer({}, app).listen(port, function () {
