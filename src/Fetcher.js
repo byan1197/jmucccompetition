@@ -1,7 +1,8 @@
-var config = require('./frontEndConfig.json')
+var env = process.env.NODE_ENV || "development";
+var host = env === 'production'? 'https://glacial-atoll-59414.herokuapp.com' : 'http://localhost:4000'
 const Fetcher = {
     getAllMatches: function () {
-        return fetch('http://glacial-atoll-59414.herokuapp.com.com/api/match', {
+        return fetch(host + '/api/match', {
             method: 'GET',
             // body: JSON.stringify({ pid: pid }),
             // headers: {
@@ -11,12 +12,12 @@ const Fetcher = {
         }).then(res => res.json())
     },
     getJudges: function () {
-        return fetch('http://glacial-atoll-59414.herokuapp.com.com/api/judge', {
+        return fetch(host + '/api/judge', {
             method: 'GET'
         }).then(res => res.json())
     },
     submitReport: function (data) {
-        return fetch('http://glacial-atoll-59414.herokuapp.com.com/api/report/submit', {
+        return fetch(host + '/api/report/submit', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -25,7 +26,7 @@ const Fetcher = {
         }).then(res => res.json())
     },
     addTeam: function (data) {
-        return fetch('http://glacial-atoll-59414.herokuapp.com.com/api/team/create', {
+        return fetch(host + '/api/team/create', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -34,7 +35,7 @@ const Fetcher = {
         }).then(res => res.json())
     },
     addJudge: function (data) {
-        return fetch('http://glacial-atoll-59414.herokuapp.com.com/api/judge/create', {
+        return fetch(host + '/api/judge/create', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -43,7 +44,7 @@ const Fetcher = {
         }).then(res => res.json())
     },
     deleteJudge: function (data) {
-        return fetch('http://glacial-atoll-59414.herokuapp.com.com/api/judge/delete', {
+        return fetch(host + '/api/judge/delete', {
             method: 'DELETE',
             body: JSON.stringify(data),
             headers: {
@@ -53,7 +54,7 @@ const Fetcher = {
 
     },
     deleteMatch: function (data) {
-        return fetch('http://glacial-atoll-59414.herokuapp.com.com/api/match/delete', {
+        return fetch(host + '/api/match/delete', {
             method: 'DELETE',
             body: JSON.stringify(data),
             headers: {
@@ -62,7 +63,7 @@ const Fetcher = {
         }).then(res => res.json())
     },
     deleteTeam: function (data) {
-        return fetch('http://glacial-atoll-59414.herokuapp.com.com/api/team/delete', {
+        return fetch(host + '/api/team/delete', {
             method: 'DELETE',
             body: JSON.stringify(data),
             headers: {
@@ -71,7 +72,7 @@ const Fetcher = {
         }).then(res => res.json())
     },
     createMatch: function (data) {
-        return fetch('http://glacial-atoll-59414.herokuapp.com.com/api/match/create', {
+        return fetch(host + '/api/match/create', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -81,7 +82,7 @@ const Fetcher = {
 
     },
     scrambleBrackets: function () {
-        return fetch('http://glacial-atoll-59414.herokuapp.com.com/api/match/bracketize', {
+        return fetch(host + '/api/match/bracketize', {
             method: 'POST',
             body: JSON.stringify({}),
             headers: {
@@ -90,17 +91,17 @@ const Fetcher = {
         }).then(res => res.json())
     },
     getAllTeams: function () {
-        return fetch('http://glacial-atoll-59414.herokuapp.com.com/api/team', {
+        return fetch(host + '/api/team', {
             method: 'GET'
         }).then(res => res.json())
     },
     getAllReports: function () {
-        return fetch('http://glacial-atoll-59414.herokuapp.com.com/api/report', {
+        return fetch(host + '/api/report', {
             method: 'GET'
         }).then(res => res.json())
     },
     clearDb: function() {
-        return fetch('http://glacial-atoll-59414.herokuapp.com.com/api/db/dropall', {
+        return fetch(host + '/api/db/dropall', {
             method: 'DELETE'
         }).then(res => res.json())
 

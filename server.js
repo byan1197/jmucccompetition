@@ -1,5 +1,6 @@
 var express = require('express');
-var http = process.env.NODE_ENV === 'production'? require('https') : require('https')
+var http = require('http')
+var https = require('https')
 var bodyParser = require('body-parser');
 var env = process.env.NODE_ENV || "development";
 var config = require('./config.json');
@@ -21,7 +22,7 @@ mongoose.connect(config.mongo.url, { useNewUrlParser: true })
 app.use(morgan('dev'));
 
 var corsOptions = {
-    origin: 'localhost',
+    origin: '*',
     allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With', 'Accept', 'token', 'content-type'],
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
@@ -36,8 +37,8 @@ app.all('*', function (req, res, next) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// if (env === "production")
-app.use(express.static("build"));
+if (env === "production")
+    app.use(express.static("build"));
 
 // END OF EXPRESS USE
 
@@ -73,8 +74,13 @@ app.use((error, req, res, next) => {
 
 
 /* ACTUAL SERVER STUFFS */
-http.createServer(app).listen(80, function () {
+var protocol = env === 'production' ? https : http;
+var port = env === 'production' ? 80 : 4000;
+
+protocol.createServer({}, app).listen(port, function () {
     console.log('Our project is running! ', (new Date()).toString());
+    console.log('Running on port', port);
+    console.log('Environment: ', env);
 }).on('error', function (err) {
     console.error(JSON.stringify(err));
 });

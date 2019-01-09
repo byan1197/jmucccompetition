@@ -58,8 +58,6 @@ router.patch('/update', (req, res) => {
         if (err)
             return res.status(400).json({ error: err })
 
-        console.log('result', result)
-
         return res.status(201).json({
             success: { message: 'Successfully updated team' }
         })

@@ -160,7 +160,6 @@ class Admin extends Component {
                 isOpen: true,
                 element: element
             })
-        console.log('type', type)
     }
 
     closeCollapse = () => {

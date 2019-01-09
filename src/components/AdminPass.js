@@ -36,7 +36,6 @@ class AdminPass extends Component {
             toast('Welcome.', {
                 position: toast.POSITION.TOP_CENTER
             });
-            console.log(this.props)
             this.props.updateFn();
             return;
         }

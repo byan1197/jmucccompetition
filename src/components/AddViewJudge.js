@@ -29,8 +29,6 @@ class AddViewJudge extends Component {
 
     deleteJudge = _id => {
 
-        console.log(_id)
-
         Fetcher.deleteJudge({_id: _id})
             .then(res => {
                 if (res.error) {

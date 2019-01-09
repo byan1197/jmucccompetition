@@ -23,7 +23,6 @@ class Judge extends Component {
     componentWillMount() {
         Fetcher.getAllMatches()
             .then(res => {
-                console.log('res', res)
                 var matches = res.map(m => {
                     return {
                         _id: m._id,

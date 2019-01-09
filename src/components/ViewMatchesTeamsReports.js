@@ -19,7 +19,6 @@ class ViewMatchesTeamsReports extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('this.props.type', this.props.type, nextProps.type)
         this.fetchItemLists(nextProps.type);
     }
 
@@ -65,7 +64,6 @@ class ViewMatchesTeamsReports extends Component {
         else if (type === 'MATCHES') {
             fetchPromise = Fetcher.getAllMatches()
                 .then(res => {
-                    console.log(res)
                     var newList = []
                     res.forEach(r => {
                         newList.push({
@@ -82,7 +80,6 @@ class ViewMatchesTeamsReports extends Component {
         else if (type === 'REPORTS') {
             fetchPromise = Fetcher.getAllReports()
                 .then(res => {
-                    console.log(res)
                     var newList = []
                     res.forEach(r => {
                         newList.push({
@@ -119,7 +116,6 @@ class ViewMatchesTeamsReports extends Component {
     }
 
     deleteItem = id => {
-        console.log(id)
         var type = this.props.type;
         var deletePromise = null;
         var messageType = '';
