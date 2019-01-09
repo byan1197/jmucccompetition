@@ -1,0 +1,9 @@
+{
+    "mongo": {
+        "user": "bond",
+        "userPass": "KdXQb4w8YS",
+        "url": "mongodb://bond:KdXQb4w8YS@ds147344.mlab.com:47344/jmucc"
+    },
+    "port": 4000,
+    "address": "localhost"
+}
