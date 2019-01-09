@@ -38,7 +38,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 if (env === "production")
     app.use(express.static("build"));
-
 // END OF EXPRESS USE
 
 //ROUTES

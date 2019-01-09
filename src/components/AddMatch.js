@@ -25,8 +25,8 @@ class AddMatch extends Component {
             .then(res => {
                 this.setState({
                     teamList: res,
-                    team1: res.length === 0? '' : res[0].teamName,
-                    team2: res.length === 0? '' : res[1].teamName,
+                    team1: res.length === 0 ? '' : res[0].teamName,
+                    team2: res.length === 0 ? '' : res[1].teamName,
                 })
             })
     }
@@ -74,12 +74,8 @@ class AddMatch extends Component {
                             </Label>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col md={12} sm={12} className='pt-2'>
-                            <Button onClick={this.submit} block color='primary'>Submit</Button>
-                        </Col>
-                    </Row>
                 </Container>
+                <Button className='mt-2' onClick={this.submit} block color='primary'>Submit</Button>
             </div>
         )
     }

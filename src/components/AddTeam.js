@@ -37,7 +37,7 @@ class AddTeam extends Component {
             judgeName: this.state.judgeName,
             university: this.state.university
         }).then(res => {
-            if (res.error){
+            if (res.error) {
                 toast.error(res.error.message)
                 return;
             }
@@ -74,9 +74,9 @@ class AddTeam extends Component {
                                 <Input value={this.state.university} onChange={e => { this.handleInputChange(e, 'university') }}></Input>
                             </Label>
                         </Col>
-                        <Button onClick={this.submit} block color='primary'>Submit</Button>
                     </Row>
                 </Container>
+                <Button className='mt-2' onClick={this.submit} block color='primary'>Submit</Button>
             </div>
         )
     }
