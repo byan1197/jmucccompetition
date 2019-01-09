@@ -23,8 +23,6 @@ router.get('/', (req, res) => {
                 }
             })
 
-            console.log(newMatches)
-
             Report.find()
                 .populate('judge')
                 .exec((err, docs) => {
@@ -32,15 +30,12 @@ router.get('/', (req, res) => {
                         return res.status(500).json({ error: err })
 
                     var data = docs.map(d => {
-                        console.log(newMatches[d.match.toString()])
                         return {
                             ...d,
                             info: newMatches[d.match.toString()]
                         }
                     })
 
-                    console.log('data', data)
-                    
                     return res.status(201).json(data);
                 })
 

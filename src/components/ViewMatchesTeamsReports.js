@@ -83,7 +83,6 @@ class ViewMatchesTeamsReports extends Component {
                 .then(res => {
                     var newList = []
                     res.forEach(r => {
-                        console.log(r._doc)
                         newList.push({
                             _id: r._id,
                             'Day': r.info.day,

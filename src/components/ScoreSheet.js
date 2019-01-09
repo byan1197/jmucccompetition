@@ -45,25 +45,39 @@ class ScoreSheet extends Component {
         if (this.state.team1Points >= 11 || this.state.pointPool === 0) return;
         var t1pt = this.state.team1Points + 1;
         var ptPool = this.state.pointPool - 1;
-        this.setState({ team1Points: t1pt, pointPool: ptPool })
+        this.setState({ team1Points: t1pt, pointPool: ptPool, colorChange1: { color: '#D13913' } })
+        this.backToBlack(1)
     }
     t1Decr = () => {
         if (this.state.team1Points <= 4) return;
         var t1pt = this.state.team1Points - 1;
         var ptPool = this.state.pointPool + 1;
-        this.setState({ team1Points: t1pt, pointPool: ptPool })
+        this.setState({ team1Points: t1pt, pointPool: ptPool, colorChange1: { color: '#D13913' } })
+        this.backToBlack(1)
     }
     t2Incr = () => {
         if (this.state.team2Points >= 11 || this.state.pointPool === 0) return;
         var t2pt = this.state.team2Points + 1;
         var ptPool = this.state.pointPool - 1;
-        this.setState({ team2Points: t2pt, pointPool: ptPool })
+        this.setState({ team2Points: t2pt, pointPool: ptPool, colorChange2: { color: '#D13913' } })
+        this.backToBlack(2)
     }
     t2Decr = () => {
         if (this.state.team2Points <= 4) return;
         var t2pt = this.state.team2Points - 1;
         var ptPool = this.state.pointPool + 1;
-        this.setState({ team2Points: t2pt, pointPool: ptPool })
+        this.setState({ team2Points: t2pt, pointPool: ptPool, colorChange2: { color: '#D13913' } })
+        this.backToBlack(2)
+    }
+
+    backToBlack = num => {
+        var key = 'colorChange' + num.toString();
+        console.log('key', key)
+        var newState = {}
+        newState[key] = { color: '#000' }
+        setTimeout(() => {
+            this.setState(newState)
+        }, 500)
     }
 
     selectJudge = e => {
@@ -75,7 +89,7 @@ class ScoreSheet extends Component {
             pointPool: 7,
             team1Points: 4,
             team2Points: 4,
-            selectedJudge: this.state.judges[0]? this.state.judges[0].judgeName : 'JUDGE NAME',
+            selectedJudge: this.state.judges[0] ? this.state.judges[0].judgeName : 'JUDGE NAME',
             judgeSign: false,
             loading: false,
             complete: false
@@ -154,14 +168,14 @@ class ScoreSheet extends Component {
                                 <Col md={3}>
                                     <Link to='/'><Button outline className='my-2'>Back to matches</Button></Link>
                                 </Col>
-                                <Col style={{textAlign: 'right'}} md={{size: 3, offset: 6}}>
+                                <Col style={{ textAlign: 'right' }} md={{ size: 3, offset: 6 }}>
                                     <p>Day {this.props.location.state.day} match</p>
                                 </Col>
                             </Row>
                             <Row>
                                 <Col md={5} sm={6}>
                                     <h3>Team {this.props.location.state.team1}</h3>
-                                    <Input min={4} max={11} type='number' value={this.state.team1Points} />
+                                    <h2 className='score' style={this.state.colorChange1}>{this.state.team1Points} pts</h2>
                                     <Button onClick={() => { this.t1Incr() }} outline color='dark' className='circular-btn m-2' style={{ color: '#3DCC91' }}><FiPlus /></Button>
                                     <Button onClick={() => { this.t1Decr() }} outline color='dark' className='circular-btn m-2' style={{ color: '#DB3737' }}><FiMinus /></Button>
                                 </Col>
@@ -171,7 +185,7 @@ class ScoreSheet extends Component {
                                 </Col>
                                 <Col md={5} sm={6}>
                                     <h3>Team {this.props.location.state.team2}</h3>
-                                    <Input min={4} max={11} type='number' value={this.state.team2Points} />
+                                    <h2 className='score' style={this.state.colorChange2}>{this.state.team2Points} pts</h2>
                                     <Button onClick={() => { this.t2Incr() }} outline color='dark' className='circular-btn m-2' style={{ color: '#3DCC91' }}><FiPlus /></Button>
                                     <Button onClick={() => { this.t2Decr() }} outline color='dark' className='circular-btn m-2' style={{ color: '#DB3737' }}><FiMinus /></Button>
                                 </Col>
@@ -179,7 +193,7 @@ class ScoreSheet extends Component {
                             <Row>
                                 <Col className='my-3' md={{ size: 4, offset: 4 }} sm={12}>
                                     <Label>Judge:</Label>
-                                    <Input type='select' onChange={e => { this.selectJudge(e) }} defaultVluae={'Select'} value={this.state.selectedJudge}>
+                                    <Input type='select' onChange={e => { this.selectJudge(e) }} value={this.state.selectedJudge}>
                                         {this.state.judges.map((j, i) => <option key={i}>{j.judgeName}</option>)}
                                     </Input>
                                 </Col>
