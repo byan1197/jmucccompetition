@@ -21,7 +21,7 @@ mongoose.connect(config.mongo.url, { useNewUrlParser: true })
 app.use(morgan('dev'));
 
 var corsOptions = {
-    origin: '127.0.0.1',
+    origin: 'localhost',
     allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With', 'Accept', 'token', 'content-type'],
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
