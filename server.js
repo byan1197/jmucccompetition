@@ -1,5 +1,5 @@
 var express = require('express');
-var http = require('http')
+var http = process.env.NODE_ENV === 'production'? require('https') : require('https')
 var bodyParser = require('body-parser');
 var env = process.env.NODE_ENV || "development";
 var config = require('./config.json');
