@@ -81,6 +81,16 @@ const Fetcher = {
         }).then(res => res.json())
 
     },
+    matchCompletion: function (data) {
+        return fetch(host + '/api/match/complete', {
+            method: 'PATCH',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+
+    },
     scrambleBrackets: function () {
         return fetch(host + '/api/match/bracketize', {
             method: 'POST',

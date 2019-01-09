@@ -160,7 +160,14 @@ router.delete('/delete', (req, res) => {
 });
 
 router.patch('/complete', (req, res) => {
+    var complete = req.body.complete;
+    var id = req.body._id;
+    Match.updateOne({ _id: id }, { $set: { complete: complete } }).exec((err, result) => {
+        if (err)
+            return res.status(500).json({ error: err })
+        return res.status(201).json({ success: { message: 'Successfully changed match completion. Judges will not see completed matches.' } });
 
+    })
 })
 
 module.exports = router;

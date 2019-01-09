@@ -3,6 +3,7 @@ import Fetcher from '../Fetcher';
 import { toast } from 'react-toastify';
 import {
     Button,
+    Input,
     Table
 } from 'reactstrap'
 
@@ -70,7 +71,7 @@ class ViewMatchesTeamsReports extends Component {
                             _id: r._id,
                             'Match': r.team1.teamName + ' vs ' + r.team2.teamName,
                             'Alias': r.team1.judgeName + ' vs ' + r.team2.judgeName,
-                            'Match Complete': r.complete ? 'Yes' : 'No'
+                            'Match Complete': r.complete
                         })
                     });
 
@@ -142,6 +143,26 @@ class ViewMatchesTeamsReports extends Component {
             })
     }
 
+    handleCheck = (e, id) => {
+        var body = {
+            _id: id,
+            complete: e.target.checked
+        }
+        var type = this.props.type;
+
+        Fetcher.matchCompletion(body).then(res => {
+            if (res.error) {
+                toast.error(res.error.message || 'Could not change match completion')
+                return;
+            }
+            if (res.success) {
+                console.log(res.success)
+                toast.success(res.success.message);
+                this.fetchItemLists(type)
+            }
+        })
+    }
+
     render() {
         var type = this.props.type;
 
@@ -173,10 +194,19 @@ class ViewMatchesTeamsReports extends Component {
                                         <tr key={i}>
                                             {
                                                 Object.keys(item).map((key, key_i) => {
-                                                    if (!(key.includes('_id')))
+                                                    if (key === 'Match Complete') {
+                                                        console.log(item[key])
+                                                        return (
+                                                            <td key={key_i}>
+                                                                <Input type='checkbox' checked={item[key]} onChange={e => { this.handleCheck(e, item._id) }} />
+                                                            </td>
+                                                        )
+                                                    }
+                                                    else if (key !== 'complete' && !(key.includes('_id'))) {
                                                         return (<td key={key_i}>
                                                             {item[key]}
                                                         </td>)
+                                                    }
                                                 })
                                             }
                                             {type !== 'REPORTS' && <td><Button onClick={() => { this.deleteItem(item._id) }}>Delete</Button></td>}

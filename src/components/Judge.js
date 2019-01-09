@@ -23,11 +23,12 @@ class Judge extends Component {
     componentWillMount() {
         Fetcher.getAllMatches()
             .then(res => {
-                var matches = res.map(m => {
+                var matches = res.filter(m => !m.complete).map(m => {
                     return {
                         _id: m._id,
                         team1: m.team1.judgeName,
-                        team2: m.team2.judgeName
+                        team2: m.team2.judgeName,
+                        complete: m.complete
                     }
                 });
                 this.setState({ matches: matches })
@@ -36,6 +37,9 @@ class Judge extends Component {
     }
 
     render() {
+
+        if (this.state.matches.length === 0)
+            return <h2>No matches to judge.</h2>
         return (
             <Container>
                 <Row>
