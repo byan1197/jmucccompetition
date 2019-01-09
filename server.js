@@ -18,22 +18,20 @@ mongoose.connect(config.mongo.url, { useNewUrlParser: true })
 // END MONGO
 
 // EXPRESS USE
+app.use(morgan('dev'));
+
+var corsOptions = {
+    origin: '127.0.0.1',
+    allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With', 'Accept', 'token', 'content-type'],
+    methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+app.use(cors(corsOptions));
 app.all('*', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     next();
 });
-app.use(cors())
-app.use(morgan('dev'));
-
-var corsOptions = {
-    origin: config.address + '/' + config.port,
-    allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With', 'Accept', 'token', 'content-type'],
-    methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
-
-app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -75,9 +73,8 @@ app.use((error, req, res, next) => {
 
 
 /* ACTUAL SERVER STUFFS */
-http.createServer(app).listen(config.port, function () {
+http.createServer(app).listen(80, function () {
     console.log('Our project is running! ', (new Date()).toString());
-    console.log('running on port is runing on port ', config.port);
 }).on('error', function (err) {
     console.error(JSON.stringify(err));
 });

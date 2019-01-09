@@ -1,7 +1,7 @@
 var config = require('./frontEndConfig.json')
 const Fetcher = {
     getAllMatches: function () {
-        return fetch(config.host + '/match', {
+        return fetch('http://127.0.0.1/api/match', {
             method: 'GET',
             // body: JSON.stringify({ pid: pid }),
             // headers: {
@@ -11,12 +11,12 @@ const Fetcher = {
         }).then(res => res.json())
     },
     getJudges: function () {
-        return fetch(config.host + '/judge', {
+        return fetch('http://127.0.0.1/api/judge', {
             method: 'GET'
         }).then(res => res.json())
     },
     submitReport: function (data) {
-        return fetch(config.host + '/report/submit', {
+        return fetch('http://127.0.0.1/api/report/submit', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -25,7 +25,7 @@ const Fetcher = {
         }).then(res => res.json())
     },
     addTeam: function (data) {
-        return fetch(config.host + '/team/create', {
+        return fetch('http://127.0.0.1/api/team/create', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -34,7 +34,7 @@ const Fetcher = {
         }).then(res => res.json())
     },
     addJudge: function (data) {
-        return fetch(config.host + '/judge/create', {
+        return fetch('http://127.0.0.1/api/judge/create', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -43,7 +43,7 @@ const Fetcher = {
         }).then(res => res.json())
     },
     deleteJudge: function (data) {
-        return fetch(config.host + '/judge/delete', {
+        return fetch('http://127.0.0.1/api/judge/delete', {
             method: 'DELETE',
             body: JSON.stringify(data),
             headers: {
@@ -53,7 +53,7 @@ const Fetcher = {
 
     },
     deleteMatch: function (data) {
-        return fetch(config.host + '/match/delete', {
+        return fetch('http://127.0.0.1/api/match/delete', {
             method: 'DELETE',
             body: JSON.stringify(data),
             headers: {
@@ -62,7 +62,7 @@ const Fetcher = {
         }).then(res => res.json())
     },
     deleteTeam: function (data) {
-        return fetch(config.host + '/team/delete', {
+        return fetch('http://127.0.0.1/api/team/delete', {
             method: 'DELETE',
             body: JSON.stringify(data),
             headers: {
@@ -71,7 +71,7 @@ const Fetcher = {
         }).then(res => res.json())
     },
     createMatch: function (data) {
-        return fetch(config.host + '/match/create', {
+        return fetch('http://127.0.0.1/api/match/create', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -81,7 +81,7 @@ const Fetcher = {
 
     },
     scrambleBrackets: function () {
-        return fetch(config.host + '/match/bracketize', {
+        return fetch('http://127.0.0.1/api/match/bracketize', {
             method: 'POST',
             body: JSON.stringify({}),
             headers: {
@@ -90,17 +90,17 @@ const Fetcher = {
         }).then(res => res.json())
     },
     getAllTeams: function () {
-        return fetch(config.host + '/team', {
+        return fetch('http://127.0.0.1/api/team', {
             method: 'GET'
         }).then(res => res.json())
     },
     getAllReports: function () {
-        return fetch(config.host + '/report', {
+        return fetch('http://127.0.0.1/api/report', {
             method: 'GET'
         }).then(res => res.json())
     },
     clearDb: function() {
-        return fetch(config.host + '/db/dropall', {
+        return fetch('http://127.0.0.1/api/db/dropall', {
             method: 'DELETE'
         }).then(res => res.json())
 
