@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import './App.css';
 import NavBar from './components/NavBar';
 import RouteList from './components/RouteList';
@@ -13,7 +13,7 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
+      <HashRouter>
         <div className='App'>
           <NavBar {...{ update: () => { this.force() } }} />
           <div className='app-content'>
@@ -31,7 +31,7 @@ class App extends Component {
             <RouteList />
           </div>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }

@@ -4,6 +4,7 @@ var https = require('https')
 var bodyParser = require('body-parser');
 var env = process.env.NODE_ENV || "development";
 var cors = require('cors');
+var path = require('path')
 
 const app = express();
 const morgan = require('morgan');
@@ -41,6 +42,11 @@ if (env === "production")
 // END OF EXPRESS USE
 
 //ROUTES
+if (env === 'production') {
+    // app.get('/admin', function (req, res) {
+    //     res.sendfile('./build/index.html');
+    // });
+}
 app.use('/api/team', teamRoutes);
 app.use('/api/report', reportRoutes);
 app.use('/api/match', matchRoutes);
@@ -79,6 +85,7 @@ protocol.createServer({}, app).listen(port, function () {
     console.log('Our project is running! ', (new Date()).toString());
     console.log('Running on port', port);
     console.log('Environment: ', env);
+    console.log('mongourl', process.env.mongourl)
 }).on('error', function (err) {
     console.error(JSON.stringify(err));
 });
