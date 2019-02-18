@@ -53,7 +53,8 @@ router.post('/create', (req, res) => {
                 team1: results[0],
                 team2: results[1],
                 complete: false,
-                day: req.body.day
+                day: req.body.day,
+                div: req.body.div
             })
 
             match.save()
@@ -90,7 +91,7 @@ router.post('/bracketize', (req, res) => {
     Team.find()
         .exec((err, teams) => {
             if (err)
-                return res.status(500).json({ error: err })
+                return res.status(500).json(err)
 
             if (teams.length < 1)
                 return res.status(201).json({
@@ -104,6 +105,8 @@ router.post('/bracketize', (req, res) => {
                 }
             }));
 
+            console.log(shufTeams);
+
             omittedTeam = shufTeams.length % 2 !== 0 ? shufTeams.pop() : null;
 
             for (var i = 0; i < shufTeams.length; i = i + 2) {
@@ -112,7 +115,8 @@ router.post('/bracketize', (req, res) => {
                     team1: shufTeams[i]._id,
                     team2: shufTeams[i + 1]._id,
                     complete: false,
-                    day: 1
+                    day: 1,
+                    div: 1
                 })
 
                 teamPromiseArr.push(new Promise((resolve, reject) => {
@@ -168,7 +172,6 @@ router.patch('/complete', (req, res) => {
         if (err)
             return res.status(500).json({ error: err })
         return res.status(201).json({ success: { message: 'Successfully changed match completion. Judges will not see completed matches.' } });
-
     })
 })
 

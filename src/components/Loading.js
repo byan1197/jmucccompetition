@@ -6,8 +6,7 @@ class Loading extends Component {
         return (
             <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
                 <Loader
-                    type="Triangle"
-                    color="#D13913"
+                    type="Watch"
                     height="100"
                     width="100"
                 />

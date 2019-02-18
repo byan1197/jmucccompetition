@@ -88,7 +88,6 @@ const Fetcher = {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
-
     },
     scrambleBrackets: function () {
         return fetch('/api/match/bracketize', {
@@ -102,6 +101,48 @@ const Fetcher = {
     getAllTeams: function () {
         return fetch('/api/team', {
             method: 'GET'
+        }).then(res => res.json())
+    },
+    getAllNonDivisionedTeams: function () {
+        return fetch('/api/team/nondiv', {
+            method: 'GET'
+        }).then(res => res.json())
+    },
+    getAllDivisions: function () {
+        return fetch('/api/division', {
+            method: 'GET'
+        }).then(res => res.json())
+    },
+    getAllVisibleDivisions: function () {
+        return fetch('/api/division/getvisible', {
+            method: 'GET'
+        }).then(res => res.json())
+    },
+    createNewDivision: function (data) {
+        return fetch('/api/division/create', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+    },
+    toggleDivisionVisibility: function(data) {
+        return fetch('/api/division/vis', {
+            method: 'PATCH',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+    },
+    deleteDivision: function (data) {
+        return fetch('/api/division/delete', {
+            method: 'DELETE',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         }).then(res => res.json())
     },
     getAllReports: function () {

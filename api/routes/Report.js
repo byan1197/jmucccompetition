@@ -19,7 +19,8 @@ router.get('/', (req, res) => {
                 newMatches[m._id.toString()] = {
                     team1: m.team1.teamName,
                     team2: m.team2.teamName,
-                    day: m.day
+                    day: m.day,
+                    div: m.div
                 }
             })
 
@@ -51,8 +52,8 @@ router.post('/submit', (req, res) => {
         });
     if (
         (body.team1Points + body.team2Points) !== 15 ||
-        body.team1Points < 4 ||
-        body.team2Points < 4
+        body.team1Points < 3 ||
+        body.team2Points < 3
     )
         return res.status(500).json({
             error: { message: 'Incorrect point distribution' }

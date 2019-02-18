@@ -9,7 +9,8 @@ import {
     CardTitle,
     Collapse
 } from 'reactstrap';
-import { FiPlus, FiCrosshair, FiX, FiFile, FiLogOut, FiUsers, FiEye, FiShuffle } from 'react-icons/fi';
+import { FiPlus, FiCrosshair, FiX, FiFile, FiLogOut, FiEye, FiShuffle } from 'react-icons/fi';
+import { TiDivide, TiThList, TiGroup } from 'react-icons/ti'
 import AdminPass from './AdminPass'
 import { toast } from 'react-toastify';
 
@@ -18,6 +19,8 @@ import ViewMatchesTeamsReports from './ViewMatchesTeamsReports';
 import Fetcher from '../Fetcher';
 import AddTeam from './AddTeam';
 import AddMatch from './AddMatch';
+import AddDivision from './AddDivision';
+import DivisionRankings from './DivisionRankings';
 
 var config = require('../frontEndConfig.json');
 
@@ -35,10 +38,16 @@ const options = [
         type: 'ADD_MATCH'
     },
     {
-        icon: <FiUsers />,
+        icon: <TiGroup />,
         title: 'Add/View Judges',
         color: '#3DCC91',
         type: 'ADD_JUDGE'
+    },
+    {
+        icon: <TiDivide />,
+        title: 'Add/View Division',
+        color: '#3DCC91',
+        type: 'ADD_DIVISION'
     },
     {
         icon: <FiCrosshair />,
@@ -63,6 +72,12 @@ const options = [
         title: 'View Teams',
         color: '#2B95D6',
         type: 'VIEW_TEAMS'
+    },
+    {
+        icon: <TiThList />,
+        title: 'Division Rankings',
+        color: '#2B95D6',
+        type: 'DIVISION_RANKINGS'
     },
     {
         icon: <FiShuffle />,
@@ -127,6 +142,10 @@ class Admin extends Component {
             element = <AddTeam />
         if (type === 'ADD_MATCH')
             element = <AddMatch />
+        if (type === 'ADD_DIVISION')
+            element = <AddDivision />
+        if (type === 'DIVISION_RANKINGS')
+            element = <DivisionRankings />
         if (type === 'LOGOUT') {
             localStorage.clear();
             toast.success('Successfully logged out')
@@ -207,9 +226,7 @@ class Admin extends Component {
                                                     color: o.color,
                                                 }
                                             }>{o.icon}</h1>
-                                            <CardTitle>
-                                                <h5>{o.title}</h5>
-                                            </CardTitle>
+                                            <h5>{o.title}</h5>
                                         </CardBody>
                                     </Card>
                                 </Col>

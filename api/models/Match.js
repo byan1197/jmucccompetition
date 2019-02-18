@@ -4,7 +4,8 @@ const matchSchema = mongoose.Schema({
     team1: { type: mongoose.Schema.Types.ObjectId, ref: 'Team', required: true },
     team2: { type: mongoose.Schema.Types.ObjectId, ref: 'Team', required: true },
     complete: { type: Boolean, required: true },
-    day: {type: Number, required: true}
+    day: {type: Number, required: true},
+    div: {type: Number, required: true}
 });
 
 

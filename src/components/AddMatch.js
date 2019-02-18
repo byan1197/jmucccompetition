@@ -18,7 +18,8 @@ class AddMatch extends Component {
             team1: '',
             team2: '',
             teamList: [],
-            day: 0
+            day: 0,
+            div: 0
         }
     }
     componentDidMount() {
@@ -44,11 +45,18 @@ class AddMatch extends Component {
         })
     }
 
+    changeDiv = e => {
+        this.setState({
+            div: e.target.value
+        })
+    }
+
     submit = () => {
         var body = {
             team1Name: this.state.team1,
             team2Name: this.state.team2,
-            day: this.state.day
+            day: this.state.day,
+            div: this.state.div
         }
         Fetcher.createMatch(body).then(res => {
             if (res.error) {
@@ -65,7 +73,7 @@ class AddMatch extends Component {
                 <h3>Add match</h3>
                 <Container>
                     <Row>
-                        <Col md={4} sm={12}>
+                        <Col md={3} sm={12}>
                             <Label>
                                 Team 1:
                                 <Input type='select' onChange={e => { this.selectTeam(e, 1) }} value={this.state.team1}>
@@ -73,7 +81,7 @@ class AddMatch extends Component {
                                 </Input>
                             </Label>
                         </Col>
-                        <Col md={4} sm={12}>
+                        <Col md={3} sm={12}>
                             <Label>
                                 Team 2:
                                 <Input type='select' onChange={e => { this.selectTeam(e, 2) }} value={this.state.team2}>
@@ -81,10 +89,16 @@ class AddMatch extends Component {
                                 </Input>
                             </Label>
                         </Col>
-                        <Col md={4} sm={12}>
+                        <Col md={3} sm={12}>
                             <Label>
                                 Day:
                                 <Input onChange={e => { this.changeDay(e) }} value={this.state.day}/>
+                            </Label>
+                        </Col>
+                        <Col md={3} sm={12}>
+                            <Label>
+                                Division:
+                                <Input onChange={e => { this.changeDiv(e) }} value={this.state.div}/>
                             </Label>
                         </Col>
                     </Row>

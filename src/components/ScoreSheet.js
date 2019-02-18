@@ -19,15 +19,20 @@ class ScoreSheet extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            pointPool: 7,
-            team1Points: 4,
-            team2Points: 4,
+
+
+        this.state = this.props.location.state? {
+            pointPool: 9,
+            team1Points: 3,
+            team2Points: 3,
             selectedJudge: '',
             judges: [],
             judgeSign: false,
             loading: false,
-            complete: false
+            complete: false,
+            empty: false
+        } : {
+            empty: true
         }
     }
 
@@ -42,28 +47,28 @@ class ScoreSheet extends Component {
     }
 
     t1Incr = () => {
-        if (this.state.team1Points >= 11 || this.state.pointPool === 0) return;
+        if (this.state.team1Points >= 12 || this.state.pointPool === 0) return;
         var t1pt = this.state.team1Points + 1;
         var ptPool = this.state.pointPool - 1;
         this.setState({ team1Points: t1pt, pointPool: ptPool, colorChange1: { color: '#D13913' } })
         this.backToBlack(1)
     }
     t1Decr = () => {
-        if (this.state.team1Points <= 4) return;
+        if (this.state.team1Points <= 3) return;
         var t1pt = this.state.team1Points - 1;
         var ptPool = this.state.pointPool + 1;
         this.setState({ team1Points: t1pt, pointPool: ptPool, colorChange1: { color: '#D13913' } })
         this.backToBlack(1)
     }
     t2Incr = () => {
-        if (this.state.team2Points >= 11 || this.state.pointPool === 0) return;
+        if (this.state.team2Points >= 12 || this.state.pointPool === 0) return;
         var t2pt = this.state.team2Points + 1;
         var ptPool = this.state.pointPool - 1;
         this.setState({ team2Points: t2pt, pointPool: ptPool, colorChange2: { color: '#D13913' } })
         this.backToBlack(2)
     }
     t2Decr = () => {
-        if (this.state.team2Points <= 4) return;
+        if (this.state.team2Points <= 3) return;
         var t2pt = this.state.team2Points - 1;
         var ptPool = this.state.pointPool + 1;
         this.setState({ team2Points: t2pt, pointPool: ptPool, colorChange2: { color: '#D13913' } })
@@ -122,10 +127,12 @@ class ScoreSheet extends Component {
             loading: true
         })
 
+        var judge = this.state.judges.find(j => j.judgeName === this.state.selectedJudge);
+
         var body = {
             team1Points: this.state.team1Points,
             team2Points: this.state.team2Points,
-            judge: this.state.judges.find(j => j.judgeName === this.state.selectedJudge)._id,
+            judge: judge? judge._id : null,
             team1: this.props.location.state.team1,
             team2: this.props.location.state.team2,
             match: this.props.location.state._id,
@@ -157,6 +164,10 @@ class ScoreSheet extends Component {
     }
 
     render() {
+        if (this.state.empty) {
+            this.props.history.push('/')
+            return <div></div>;
+        }
         if (this.state.loading)
             return <Loading />
         return <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
@@ -203,7 +214,7 @@ class ScoreSheet extends Component {
                                     </Label>
                                 </Col>
                                 <Col className='my-3' md={{ size: 3, offset: 3 }} sm={12}>
-                                    <Button onClick={this.submit} block color='primary'>Submit</Button>
+                                    <Button onClick={this.submit} block style={{border: 'none', backgroundColor: 'rgb(43, 149, 214)'}}>Submit</Button>
                                 </Col>
                                 <Col className='my-3' md={{ size: 3 }} sm={12}>
                                     <Button block color='warning' onClick={() => this.clear()}>Clear</Button>

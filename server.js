@@ -13,6 +13,7 @@ const teamRoutes = require('./api/routes/Team')
 const reportRoutes = require('./api/routes/Report')
 const matchRoutes = require('./api/routes/Match')
 const judgeRoutes = require('./api/routes/Judge')
+const divisionRoutes = require('./api/routes/Division')
 
 // MONGO
 mongoose.connect(process.env.mongourl, { useNewUrlParser: true })
@@ -42,15 +43,11 @@ if (env === "production")
 // END OF EXPRESS USE
 
 //ROUTES
-if (env === 'production') {
-    // app.get('/admin', function (req, res) {
-    //     res.sendfile('./build/index.html');
-    // });
-}
 app.use('/api/team', teamRoutes);
 app.use('/api/report', reportRoutes);
 app.use('/api/match', matchRoutes);
 app.use('/api/judge', judgeRoutes);
+app.use('/api/division', divisionRoutes);
 app.delete('/api/db/dropall', (req, res) => {
     mongoose.createConnection(process.env.mongourl).dropDatabase((err, results) => {
         if (err)
@@ -85,7 +82,6 @@ protocol.createServer({}, app).listen(port, function () {
     console.log('Our project is running! ', (new Date()).toString());
     console.log('Running on port', port);
     console.log('Environment: ', env);
-    console.log('mongourl', process.env.mongourl)
 }).on('error', function (err) {
     console.error(JSON.stringify(err));
 });

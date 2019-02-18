@@ -69,6 +69,7 @@ class ViewMatchesTeamsReports extends Component {
                         newList.push({
                             _id: r._id,
                             'Day': r.day,
+                            'Division': r.div,
                             'Match': r.team1.teamName + ' vs ' + r.team2.teamName,
                             'Alias': r.team1.judgeName + ' vs ' + r.team2.judgeName,
                             'Match Complete': r.complete
@@ -86,6 +87,7 @@ class ViewMatchesTeamsReports extends Component {
                         newList.push({
                             _id: r._id,
                             'Day': r.info.day,
+                            'Div': r.info.div,
                             'Team 1': r.info.team1 + ' (' + r._doc.team1 + ')',
                             'Team 2': r.info.team2 + ' (' + r._doc.team2 + ')',
                             'Team 1 Points': r._doc.team1Points,
@@ -118,6 +120,9 @@ class ViewMatchesTeamsReports extends Component {
     }
 
     deleteItem = id => {
+
+        console.log('deleting')
+
         var type = this.props.type;
         var deletePromise = null;
         var messageType = '';

@@ -6,37 +6,32 @@ import {
     Card,
     CardBody,
     CardTitle,
-    Button,
 } from 'reactstrap';
 import Fetcher from '../Fetcher'
 import Loading from './Loading'
 import { Link } from 'react-router-dom';
 
-class Judge extends Component {
+class JudgeDivisions extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            matches: [],
+            divisions: [],
             loading: true
         }
     }
 
     componentWillMount() {
-        Fetcher.getAllMatches()
+        Fetcher.getAllVisibleDivisions()
             .then(res => {
-                var matches = res.filter(m => !m.complete).map(m => {
+                var divisions = res.filter(d => !d.complete).map(d => {
                     return {
-                        _id: m._id,
-                        team1: m.team1.judgeName,
-                        team2: m.team2.judgeName,
-                        complete: m.complete,
-                        day: m.day,
-                        div: m.div
+                        _id: d._id,
+                        divNum: d.divNum,
+                        teams: d.teams
                     }
                 });
-                matches.sort((a, b) => b.day - a.day)
-                this.setState({ matches: matches, loading: false })
+                this.setState({ divisions: divisions, loading: false })
 
             })
     }
@@ -46,22 +41,21 @@ class Judge extends Component {
         if (this.state.loading)
             return <Loading/>
 
-        if (this.state.matches.length === 0)
-            return <h2>No matches to judge.</h2>
+        if (this.state.divisions.length === 0)
+            return <h2>No divisions currently.</h2>
         return (
             <Container>
                 <Row>
                     {
-                        this.state.matches.map((m, i) =>
+                        this.state.divisions.map((d, i) =>
                             <Col key={i} md={4} sm={6}>
-                                <Link style={{ textDecoration: 'none' }} className='match-card' to={{ pathname: '/score', state: { ...m } }}>
+                                <Link style={{ textDecoration: 'none' }} className='match-card' to={{ pathname: '/rank', state: { ...d } }}>
                                     <Card className='shadow my-3 move-on-hover'>
                                         <CardBody>
                                             <CardTitle>
-                                                <p>Day {m.day}, Div. {m.div}</p>
-                                                <h2>Team {m.team1} <br /> -vs- <br /> Team {m.team2}</h2>
+                                                <h2>Division {d.divNum}</h2>
                                             </CardTitle>
-                                            Click to judge this match
+                                            Click to rank this division
                                         </CardBody>
                                     </Card>
                                 </Link>
@@ -76,4 +70,4 @@ class Judge extends Component {
 
 }
 
-export default Judge;
+export default JudgeDivisions;

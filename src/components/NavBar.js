@@ -9,6 +9,7 @@ import {
     NavLink,
 } from 'reactstrap';
 import { FiLock, FiFileText } from 'react-icons/fi'
+import { TiDivide } from 'react-icons/ti'
 import { withRouter } from 'react-router-dom';
 
 class NavBar extends Component {
@@ -42,6 +43,9 @@ class NavBar extends Component {
                         <Nav className="ml-auto" navbar>
                             <NavItem>
                                 <NavLink onClick={() => { this.historyPush('/') }}><FiFileText />Judge</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink onClick={() => { this.historyPush('/divisions') }}><TiDivide />Division Ranking</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink onClick={() => { this.historyPush('/admin') }}><FiLock />Admin</NavLink>
