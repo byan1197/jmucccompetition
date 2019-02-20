@@ -63,24 +63,12 @@ class DivisionRankings extends Component {
                                     <tbody> {
                                         this.state.rankings.map((r, i) => {
                                             return (<tr key={i}>
-                                                <td>
-                                                    {r.division.divNum || ''}
-                                                </td>
-                                                <td>
-                                                    {r.judge.judgeName || ''}
-                                                </td>
-                                                <td>
-                                                    {r.ranking[0].teamName || ''}({r.ranking[0].judgeName || ''})
-                                                </td>
-                                                <td>
-                                                    {r.ranking[1].teamName || ''}({r.ranking[1].judgeName || ''})
-                                                </td>
-                                                <td>
-                                                    {r.ranking[2].teamName || ''}({r.ranking[2].judgeName || ''})
-                                                </td>
-                                                <td>
-                                                    {r.ranking[3].teamName || ''}({r.ranking[3].judgeName || ''})
-                                                </td>
+                                                <td>{r.division.divNum || 'Division not found'}</td>
+                                                <td>{r.judge? r.judge.judgeName || 'Judge not found' : 'Judge not found'}</td>
+                                                <td>{r.ranking[0]? r.ranking[0].teamName || 'Team not found': 'Team not found'}({r.ranking[0]? r.ranking[0].judgeName || 'Team not found': 'Team not found'})</td>
+                                                <td>{r.ranking[1]? r.ranking[1].teamName || 'Team not found': 'Team not found'}({r.ranking[1]? r.ranking[1].judgeName || 'Team not found': 'Team not found'})</td>
+                                                <td>{r.ranking[2]? r.ranking[2].teamName || 'Team not found': 'Team not found'}({r.ranking[2]? r.ranking[2].judgeName || 'Team not found': 'Team not found'})</td>
+                                                <td>{r.ranking[3]? r.ranking[3].teamName || 'Team not found': 'Team not found'}({r.ranking[3]? r.ranking[3].judgeName || 'Team not found': 'Team not found'})</td>
                                             </tr>)
                                         })
                                     } </tbody>
