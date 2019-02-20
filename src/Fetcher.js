@@ -127,7 +127,7 @@ const Fetcher = {
             }
         }).then(res => res.json())
     },
-    toggleDivisionVisibility: function(data) {
+    toggleDivisionVisibility: function (data) {
         return fetch('/api/division/vis', {
             method: 'PATCH',
             body: JSON.stringify(data),
@@ -135,6 +135,20 @@ const Fetcher = {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
+    },
+    submitRankings: function (data) {
+        return fetch('/api/division/rank', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+    },
+    getRankings: function () {
+        return fetch('/api/division/rankings', {
+            method: 'GET'
+        }).then(res => res.json());
     },
     deleteDivision: function (data) {
         return fetch('/api/division/delete', {
@@ -150,7 +164,7 @@ const Fetcher = {
             method: 'GET'
         }).then(res => res.json())
     },
-    clearDb: function() {
+    clearDb: function () {
         return fetch('/api/db/dropall', {
             method: 'DELETE'
         }).then(res => res.json())

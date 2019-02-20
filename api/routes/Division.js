@@ -71,6 +71,18 @@ router.post('/create', (req, res) => {
     })
 })
 
+router.get('/rankings', (req, res) => {
+    DivisionReport.find()
+    .populate('judge ranking division')
+    .exec((err, docs) => {
+        if (err)    
+            res.status(500).json({
+                error: { message: 'Error while fetching rankings.' }
+            })
+        res.status(201).json(docs);
+    })
+})
+
 router.post('/rank', (req, res) => {
     const body = req.body;
 
@@ -81,22 +93,35 @@ router.post('/rank', (req, res) => {
             error: { message: 'Does not comply with rules: judge has not signed' }
         });
 
-    var divisionCheck = new Promise((reject, resolve) => {
+    var divisionCheck = new Promise(resolve => {
         DivisionReport.find({ judge: body.judge }).exec((err, result) => {
             if (result.length >= 1) {
                 return res.status(500).json({
                     error: { message: 'This division has already been judged by this person' }
                 });
             }
+            resolve();
         })
     })
 
     divisionCheck.then(() => {
         const divisionReport = new DivisionReport({
             _id: new mongoose.Types.ObjectId(),
-            ranking: [body.rankings],
+            ranking: body.rankings,
             judge: body.judge,
-            division: body.division,
+            division: body.division
+        })
+        divisionReport.save()
+        .then(result => {
+            return res.status(201).json({
+                success: { message: 'Rankings submitted.' }
+            });
+        })
+        .catch(err => {
+            console.error(err);
+            return res.status(500).json({
+                error: { message: 'Error while ranking match.' }
+            })
         })
     })
 

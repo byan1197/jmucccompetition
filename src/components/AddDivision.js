@@ -166,30 +166,35 @@ class AddDivision extends Component {
                 <h3>Divisions</h3>
                 <Container>
                     <Row>
-                        <Table>
-                            <thead>
-                                <tr>
-                                    <th>Div #</th>
-                                    <th>Team names</th>
-                                    <th>Visibility</th>
-                                    <th>Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    this.state.divisions.map((d, i) => {
-                                        return <tr>
-                                            <td>{d.divNum}</td>
-                                            <td>{d.teamStr}</td>
-                                            <td>
-                                                <Input checked={d.visible} onChange={e => { this.toggleVisibility(d._id, e) }} type='checkbox' />
-                                            </td>
-                                            <td><Button onClick={() => { this.delete(d._id) }}>Delete</Button></td>
+                        {
+                            this.state.divisions.length === 0 ?
+                                <h5>No divisions</h5>
+                                :
+                                <Table>
+                                    <thead>
+                                        <tr>
+                                            <th>Div #</th>
+                                            <th>Team names</th>
+                                            <th>Visibility</th>
+                                            <th>Delete</th>
                                         </tr>
-                                    })
-                                }
-                            </tbody>
-                        </Table>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            this.state.divisions.map((d, i) => {
+                                                return <tr>
+                                                    <td>{d.divNum}</td>
+                                                    <td>{d.teamStr}</td>
+                                                    <td>
+                                                        <Input checked={d.visible} onChange={e => { this.toggleVisibility(d._id, e) }} type='checkbox' />
+                                                    </td>
+                                                    <td><Button className='btn-grad-delete' onClick={() => { this.delete(d._id) }}>Delete</Button></td>
+                                                </tr>
+                                            })
+                                        }
+                                    </tbody>
+                                </Table>
+                        }
                     </Row>
                     <Row>
                         <Col md={12} sm={12}>
@@ -202,6 +207,7 @@ class AddDivision extends Component {
                             </Label>
                         </Col>
                         {
+                            this.state.availTeams.length >=0?
                             this.state.availTeams.map((t, index) =>
                                 <Col md={12} sm={12}>
                                     <Label key={index} check>
@@ -209,11 +215,12 @@ class AddDivision extends Component {
                                         {t.obj.teamName}
                                     </Label>
                                 </Col>
-                            )
+                            ):
+                            <h2>All available teams are divisioned</h2>
                         }
                     </Row>
                 </Container>
-                <Button className='mt-2' onClick={this.submit} block color='primary'>Submit</Button>
+                <Button className='mt-2 btn-grad-primary' onClick={this.submit} block>Submit</Button>
             </div>
         )
     }

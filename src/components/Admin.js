@@ -217,16 +217,16 @@ class Admin extends Component {
                     {
                         options.map((o, i) => {
                             return (
-                                <Col md={3} sm={6} key={i}>
+                                <Col lg={3} md={4} sm={6} key={i}>
                                     <Card className='shadow my-3 move-on-hover' onClick={() => { this.handleTaskClick(o.type) }}>
                                         <CardBody>
-                                            <h1 style={
+                                            <h5 style={
                                                 {
                                                     fontSize: '50px',
                                                     color: o.color,
                                                 }
-                                            }>{o.icon}</h1>
-                                            <h5>{o.title}</h5>
+                                            }>{o.icon}</h5>
+                                            <h5 style={{whiteSpace: 'nowrap'}}>{o.title}</h5>
                                         </CardBody>
                                     </Card>
                                 </Col>

@@ -14,6 +14,7 @@ import {
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import Fetcher from '../Fetcher';
+import Loading from './Loading'
 
 class RankingSheet extends Component {
 
@@ -26,7 +27,8 @@ class RankingSheet extends Component {
             selectedJudge: '',
             judgeSign: false,
             judges: [],
-            empty: false
+            empty: false,
+            loading: false
         } : {
                 empty: true
             }
@@ -54,12 +56,20 @@ class RankingSheet extends Component {
 
     submit = () => {
         var judge = this.state.judges.find(j => j.judgeName === this.state.selectedJudge);
+
+        if (!judge) {
+            toast.error('Please select your name');
+            return;
+        }
+
         var body = {
             rankings: this.state.rankings,
             judge: judge._id || null,
-            judgeSign: this.state.judgeSign
+            judgeSign: this.state.judgeSign,
+            division: this.state._id
         }
-        if (body.rankings.length > 4) {
+
+        if (body.rankings.length > 4 || body.rankings.length < 4) {
             toast.error('Error while ranking');
             return;
         }
@@ -73,6 +83,32 @@ class RankingSheet extends Component {
             toast.error('Judge(s) have not signed');
             return;
         }
+
+        Fetcher.submitRankings(body).then(res => {
+
+            console.log('res', res);
+
+            if (res.error) {
+                toast.error(res.error.message, {
+                    position: toast.POSITION.TOP_CENTER
+                });
+                this.setState({
+                    loading: false
+                })
+                return;
+            }
+            setTimeout(() => {
+                this.setState({
+                    loading: false
+                })
+                var msg = res.success ? res.success.message : 'Rankings submitted.'
+                toast.success(msg, {
+                    position: toast.POSITION.TOP_CENTER
+                })
+                this.props.history.push('/divisions')
+            }, 500)
+        })
+
     }
 
     selectJudge = e => {
@@ -90,6 +126,8 @@ class RankingSheet extends Component {
             this.props.history.push('/divisions')
             return <div></div>;
         }
+        if (this.state.loading)
+            return <Loading />
         return (
             <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
                 <Container>
@@ -112,8 +150,8 @@ class RankingSheet extends Component {
                                             {this.state.teams.map((t, i) => {
                                                 return <ListGroupItem block key={i}>
                                                     <Row>
-                                                        <Col md={{ offset: 1, size: 3 }} sm={12}><b>Team alias:</b><br></br>{t.judgeName}</Col>
-                                                        <Col md={{ offset: 5, size: 3 }} sm={12}>
+                                                        <Col md={{ offset: 1, size: 5 }} sm={12}><b>Team alias:</b><br></br>{t.judgeName}</Col>
+                                                        <Col md={{ offset: 1, size: 4 }} sm={12}>
                                                             <b>Rank:</b>
                                                             <Input type='select' onChange={e => { this.rank(e, t._id) }}>
                                                                 {
@@ -132,14 +170,13 @@ class RankingSheet extends Component {
                                     </Col>
                                 </Row>
                                 <Row>
-
                                     <Col md={{size: 4, offset: 4}} sm={12} >
                                         <Label>Judge:<Input type='select' onChange={e => { this.selectJudge(e) }} value={this.state.selectedJudge}>
                                             {this.state.judges.map((j, i) => <option key={i}>{j.judgeName}</option>)}
                                         </Input>
                                         </Label>
                                     </Col>
-                                    <Col md={{size: 6, offset: 3}} sm={12}>
+                                    <Col md={{size: 8, offset: 2}} sm={12}>
                                         <Label check>
                                             <Input onChange={e => { this.judgeSign(e) }} type='checkbox' />
                                             I, {this.state.selectedJudge}, hereby willingly submit this score.
@@ -148,7 +185,7 @@ class RankingSheet extends Component {
                                 </Row>
                                 <Row>
                                     <Col md={{ size: 2, offset: 5 }} sm={12}>
-                                        <Button block className='my-2' style={{ border: 'none', backgroundColor: 'rgb(43, 149, 214)' }} onClick={() => { this.submit() }}>Submit</Button>
+                                        <Button block className='my-2 btn-grad-primary' style={{ border: 'none', backgroundColor: 'rgb(43, 149, 214)' }} onClick={() => { this.submit() }}>Submit</Button>
                                     </Col>
                                 </Row>
                             </Container>

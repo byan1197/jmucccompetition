@@ -103,7 +103,7 @@ class AddMatch extends Component {
                         </Col>
                     </Row>
                 </Container>
-                <Button className='mt-2' onClick={this.submit} block color='primary'>Submit</Button>
+                <Button className='mt-2  btn-grad-primary' onClick={this.submit} block color='primary'>Submit</Button>
             </div>
         )
     }

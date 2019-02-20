@@ -48,7 +48,7 @@ class JudgeDivisions extends Component {
                 <Row>
                     {
                         this.state.divisions.map((d, i) =>
-                            <Col key={i} md={4} sm={6}>
+                            <Col key={i} lg={4} md={6} sm={6}>
                                 <Link style={{ textDecoration: 'none' }} className='match-card' to={{ pathname: '/rank', state: { ...d } }}>
                                     <Card className='shadow my-3 move-on-hover'>
                                         <CardBody>

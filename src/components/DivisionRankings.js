@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {
-    Input,
-    Label,
-    Button,
+    Table,
     Container,
     Col,
     Row
@@ -15,59 +13,87 @@ class DivisionRankings extends Component {
     constructor() {
         super()
         this.state = {
-            teamName: '',
-            judgeName: '',
+            rankings: []
         }
     }
 
-    handleInputChange = (e, type) => {
-        var newState = {};
-        newState[type] = e.target.value;
-        this.setState(newState)
-    }
-
-    submit = () => {
-        if (!this.state.teamName || !this.state.judgeName) {
-            toast.error('Fields cannot be empty')
-            return;
-        }
-        Fetcher.addTeam({
-            teamName: this.state.teamName,
-            judgeName: this.state.judgeName,
-        }).then(res => {
+    componentDidMount() {
+        Fetcher.getRankings().then(res => {
             if (res.error) {
-                toast.error(res.error.message)
-                return;
+                toast.error(res.error.message);
+                return
             }
-            toast.success(res.success.message)
-            this.setState({
-                teamName: '',
-                judgeName: '',
-            })
+            this.setState({ rankings: res });
+            console.log(res)
         })
     }
 
     render() {
         return (
             <div>
-                <h3>Add a team</h3>
                 <Container>
                     <Row>
-                        <Col md={6} sm={12}>
-                            <Label>
-                                Team Name:
-                                <Input value={this.state.teamName} onChange={e => { this.handleInputChange(e, 'teamName') }}></Input>
-                            </Label>
-                        </Col>
-                        <Col md={6} sm={12}>
-                            <Label>
-                                Team Alias (Judges will see this):
-                                <Input value={this.state.judgeName} onChange={e => { this.handleInputChange(e, 'judgeName') }}></Input>
-                            </Label>
+                        <Col md={12}>
+                            <h2>Division Rankings by Judges</h2>
+                            {
+                                this.state.rankings.length > 0 &&
+                                <Table>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Division
+                                            </th>
+                                            <th>
+                                                Judge
+                                            </th>
+                                            <th>
+                                                1st
+                                            </th>
+                                            <th>
+                                                2nd
+                                            </th>
+                                            <th>
+                                                3rd
+                                            </th>
+                                            <th>
+                                                4th
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> {
+                                        this.state.rankings.map((r, i) => {
+                                            return (<tr key={i}>
+                                                <td>
+                                                    {r.division.divNum}
+                                                </td>
+                                                <td>
+                                                    {r.judge.judgeName}
+                                                </td>
+                                                <td>
+                                                    {r.ranking[0].teamName}({r.ranking[0].judgeName})
+                                                </td>
+                                                <td>
+                                                    {r.ranking[1].teamName}({r.ranking[1].judgeName})
+                                                </td>
+                                                <td>
+                                                    {r.ranking[2].teamName}({r.ranking[2].judgeName})
+                                                </td>
+                                                <td>
+                                                    {r.ranking[3].teamName}({r.ranking[3].judgeName})
+                                                </td>
+                                            </tr>)
+                                        })
+                                    } </tbody>
+                                </Table>
+                            }
+                            {
+                                this.state.rankings.length === 0 && 
+                                <h4>No rankings to show</h4>
+                            }
                         </Col>
                     </Row>
                 </Container>
-                <Button className='mt-2' onClick={this.submit} block color='primary'>Submit</Button>
+
             </div>
         )
     }

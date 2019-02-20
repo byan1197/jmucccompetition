@@ -82,7 +82,8 @@ class AddViewJudge extends Component {
                     this.state.judgeList.map((j, i) => {
                         return (
                             <ListGroupItem key={i}>
-                                {j.judgeName} <Button onClick={() => { this.deleteJudge(j._id) }}>Delete</Button>
+
+                                {j.judgeName} <Button className='btn-grad-delete mx-2' onClick={() => { this.deleteJudge(j._id) }}>Delete</Button>
                             </ListGroupItem>
                         )
                     })
@@ -92,8 +93,8 @@ class AddViewJudge extends Component {
             <Label>
                 Judge Name:
                 <Input onChange={this.changeJudgeName} value={this.state.judgeName} />
+            <Button className='mt-2 btn-grad-primary' block onClick={this.submitJudgeName}>Submit</Button>
             </Label>
-            <Button color='primary' onClick={this.submitJudgeName}>Submit</Button>
         </div>
     }
 }

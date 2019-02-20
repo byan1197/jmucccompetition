@@ -213,7 +213,7 @@ class ViewMatchesTeamsReports extends Component {
                                                     }
                                                 })
                                             }
-                                            {type !== 'REPORTS' && <td><Button onClick={() => { this.deleteItem(item._id) }}>Delete</Button></td>}
+                                            {type !== 'REPORTS' && <td><Button className='btn-grad-delete' onClick={() => { this.deleteItem(item._id) }}>Delete</Button></td>}
                                         </tr>
                                     )
                                 })

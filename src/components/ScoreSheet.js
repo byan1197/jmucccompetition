@@ -214,10 +214,10 @@ class ScoreSheet extends Component {
                                     </Label>
                                 </Col>
                                 <Col className='my-3' md={{ size: 3, offset: 3 }} sm={12}>
-                                    <Button onClick={this.submit} block style={{border: 'none', backgroundColor: 'rgb(43, 149, 214)'}}>Submit</Button>
+                                    <Button onClick={this.submit} className='btn-grad-primary' block style={{border: 'none', backgroundColor: 'rgb(43, 149, 214)'}}>Submit</Button>
                                 </Col>
                                 <Col className='my-3' md={{ size: 3 }} sm={12}>
-                                    <Button block color='warning' onClick={() => this.clear()}>Clear</Button>
+                                    <Button block className='btn-grad-secondary' onClick={() => this.clear()}>Clear</Button>
                                 </Col>
                             </Row>
                         </Container>
