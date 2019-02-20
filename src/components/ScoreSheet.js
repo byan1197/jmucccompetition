@@ -19,8 +19,6 @@ class ScoreSheet extends Component {
 
     constructor(props) {
         super(props);
-
-
         this.state = this.props.location.state? {
             pointPool: 9,
             team1Points: 3,
@@ -91,13 +89,15 @@ class ScoreSheet extends Component {
 
     clear = () => {
         this.setState({
-            pointPool: 7,
-            team1Points: 4,
-            team2Points: 4,
-            selectedJudge: this.state.judges[0] ? this.state.judges[0].judgeName : 'JUDGE NAME',
+            pointPool: 9,
+            team1Points: 3,
+            team2Points: 3,
+            selectedJudge: '',
+            judges: [],
             judgeSign: false,
             loading: false,
-            complete: false
+            complete: false,
+            empty: false
         })
     }
 

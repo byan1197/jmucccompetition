@@ -19,12 +19,12 @@ class DivisionRankings extends Component {
 
     componentDidMount() {
         Fetcher.getRankings().then(res => {
+            console.log('res', res)
             if (res.error) {
                 toast.error(res.error.message);
                 return
             }
             this.setState({ rankings: res });
-            console.log(res)
         })
     }
 
@@ -64,22 +64,22 @@ class DivisionRankings extends Component {
                                         this.state.rankings.map((r, i) => {
                                             return (<tr key={i}>
                                                 <td>
-                                                    {r.division.divNum}
+                                                    {r.division.divNum || ''}
                                                 </td>
                                                 <td>
-                                                    {r.judge.judgeName}
+                                                    {r.judge.judgeName || ''}
                                                 </td>
                                                 <td>
-                                                    {r.ranking[0].teamName}({r.ranking[0].judgeName})
+                                                    {r.ranking[0].teamName || ''}({r.ranking[0].judgeName || ''})
                                                 </td>
                                                 <td>
-                                                    {r.ranking[1].teamName}({r.ranking[1].judgeName})
+                                                    {r.ranking[1].teamName || ''}({r.ranking[1].judgeName || ''})
                                                 </td>
                                                 <td>
-                                                    {r.ranking[2].teamName}({r.ranking[2].judgeName})
+                                                    {r.ranking[2].teamName || ''}({r.ranking[2].judgeName || ''})
                                                 </td>
                                                 <td>
-                                                    {r.ranking[3].teamName}({r.ranking[3].judgeName})
+                                                    {r.ranking[3].teamName || ''}({r.ranking[3].judgeName || ''})
                                                 </td>
                                             </tr>)
                                         })

@@ -73,14 +73,14 @@ router.post('/create', (req, res) => {
 
 router.get('/rankings', (req, res) => {
     DivisionReport.find()
-    .populate('judge ranking division')
-    .exec((err, docs) => {
-        if (err)    
-            res.status(500).json({
-                error: { message: 'Error while fetching rankings.' }
-            })
-        res.status(201).json(docs);
-    })
+        .populate('judge ranking division')
+        .exec((err, docs) => {
+            if (err)
+                res.status(500).json({
+                    error: { message: 'Error while fetching rankings.' }
+                })
+            res.status(201).json(docs);
+        })
 })
 
 router.post('/rank', (req, res) => {
@@ -93,8 +93,23 @@ router.post('/rank', (req, res) => {
             error: { message: 'Does not comply with rules: judge has not signed' }
         });
 
+    if (!body.judge)
+        return res.status(500).json({
+            error: { message: 'Judge not found' }
+        });
+
+    if (body.rankings.length !== 4)
+        return res.status(500).json({
+            error: { message: 'Not properly ranked' }
+        });
+
+    if (!body.division)
+        return res.status(500).json({
+            error: { message: 'Division not found' }
+        });
+
     var divisionCheck = new Promise(resolve => {
-        DivisionReport.find({ judge: body.judge }).exec((err, result) => {
+        DivisionReport.find({ judge: body.judge, division: body.divNum }).exec((err, result) => {
             if (result.length >= 1) {
                 return res.status(500).json({
                     error: { message: 'This division has already been judged by this person' }
@@ -112,17 +127,17 @@ router.post('/rank', (req, res) => {
             division: body.division
         })
         divisionReport.save()
-        .then(result => {
-            return res.status(201).json({
-                success: { message: 'Rankings submitted.' }
-            });
-        })
-        .catch(err => {
-            console.error(err);
-            return res.status(500).json({
-                error: { message: 'Error while ranking match.' }
+            .then(result => {
+                return res.status(201).json({
+                    success: { message: 'Rankings submitted.' }
+                });
             })
-        })
+            .catch(err => {
+                console.error(err);
+                return res.status(500).json({
+                    error: { message: 'Error while ranking match.' }
+                })
+            })
     })
 
 })

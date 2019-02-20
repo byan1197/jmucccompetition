@@ -7,7 +7,7 @@ body {
   /* background: linear-gradient(#D8E1E8, #fff) no-repeat;  OLD*/
   background-image: url("/p5.png");
   background-repeat: repeat;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Lato', sans-serif;
 }
 
 .match-card {
@@ -20,6 +20,10 @@ body {
   transition-timing-function: linear;
   color: rgb(43, 149, 214) !important;
   cursor: pointer;
+}
+
+.navbar {
+  font-family: 'Comfortaa', cursive;
 }
 
 .circular-btn {
