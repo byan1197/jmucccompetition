@@ -21,6 +21,8 @@ docker-compose up --build
 ```
 and everything should work locally!
 
+Visit http://localhost:3000 in your browser to see the webapp!
+
 ## I want to write some code! 💻
 To run this in a development environment, you will need all of the above pre-requisites. you can start by installing all of the dependencies.
 
