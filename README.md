@@ -55,7 +55,7 @@ Deploy away!
 # How can I deploy this to the ✨cloud✨
 Unfortunately, deploying is a little bit of a hassle since I am on a free heroku tier and I am the sole owner of the account. That being said I still have to tools to do these deployments myself, so just contact me if you have some code you want me to review and deploy.
 
-Alternatively, if you have a better method of deployment, you can definitely do it yourself!
+Alternatively, if you have a better method of deployment, you can certainly do it yourself!
 
 # Support
 [I am](https://github.com/byan1197) no longer interested in contributing to this project, but I can still review any contributions made!
