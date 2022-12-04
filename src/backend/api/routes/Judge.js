@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const Match = require('../models/Match')
-const Team = require('../models/Team')
 const Judge = require('../models/Judge')
 
 router.get('/', (req, res) => {

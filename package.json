@@ -6,7 +6,7 @@
     "bootstrap": "^4.2.1",
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "mongoose": "^5.4.1",
+    "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
@@ -18,8 +18,8 @@
     "reactstrap": "^7.0.2"
   },
   "scripts": {
-    "start": "node server.js",
-    "d-start": "react-scripts start",
+    "start-backend": "node src/backend/server.js",
+    "start-frontend": "react-scripts start",
     "heroku-postbuild": "react-scripts build",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -34,5 +34,11 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "http://localhost:4000"
+  "proxy": "http://localhost:4000",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^6.0.3"
+  }
 }

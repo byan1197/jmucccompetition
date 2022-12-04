@@ -1,0 +1,9 @@
+FROM node:16-alpine 
+WORKDIR /app
+COPY . .
+RUN yarn install --frozen-lockfile
+RUN yarn build
+ENV NODE_ENV production
+EXPOSE 4000
+# Start the app
+CMD [ "node", "src/backend/server.js" ]

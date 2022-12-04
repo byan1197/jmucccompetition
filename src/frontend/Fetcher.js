@@ -1,13 +1,7 @@
-var env = process.env.NODE_ENV || "development";
 const Fetcher = {
     getAllMatches: function () {
         return fetch('/api/match', {
             method: 'GET',
-            // body: JSON.stringify({ pid: pid }),
-            // headers: {
-            //     'Content-Type': 'application/json',
-            // //     'token': localStorage.getItem('token')
-            // }
         }).then(res => res.json())
     },
     getJudges: function () {
@@ -167,6 +161,12 @@ const Fetcher = {
     clearDb: function () {
         return fetch('/api/db/dropall', {
             method: 'DELETE'
+        }).then(res => res.json())
+
+    },
+    auth: function () {
+        return fetch('/api/auth', {
+            method: 'GET'
         }).then(res => res.json())
 
     }
