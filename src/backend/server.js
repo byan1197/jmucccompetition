@@ -16,8 +16,6 @@ const judgeRoutes = require("./api/routes/Judge");
 const divisionRoutes = require("./api/routes/Division");
 require("dotenv").config();
 
-console.log('environment var', JSON.stringify(process.env, null, 2))
-
 // MONGO
 mongoose.connect(process.env.mongourl, {
   useNewUrlParser: true,
@@ -100,9 +98,8 @@ app.use((error, req, res, next) => {
   });
 });
 
-/* ACTUAL SERVER STUFFS */
-var protocol = http;
-var port = env === "production" ? process.env.PORT : 4000;
+const protocol = http;
+const port = process.env.BACKEND_PORT;
 
 protocol
   .createServer({}, app)
