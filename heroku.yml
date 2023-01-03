@@ -1,7 +1,4 @@
-setup:
-  config:
-    env_file: .env
 build:
   docker:
-    frontend: ./Dockerfile.backend
-    backend: ./Dockerfile.frontend
+    frontend: ./Dockerfile.frontend
+    backend: ./Dockerfile.backend
