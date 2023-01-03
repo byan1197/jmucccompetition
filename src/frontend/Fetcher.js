@@ -1,4 +1,3 @@
-const baseUrl = "http://localhost:4000"
 const Fetcher = {
     getAllMatches: () => getFetch('/api/matches'),
     getJudges: () => getFetch('/api/judges'),
@@ -26,13 +25,13 @@ const Fetcher = {
 }
 
 function getFetch(path) {
-    return fetch(`${baseUrl}${path}`, {
+    return fetch(path, {
         method: 'GET'
     }).then(res => res.json())
 }
 
 function functionalFetch(path, method, body) {
-    return fetch(`${baseUrl}${path}`, {
+    return fetch(path, {
         method,
         body: JSON.stringify(body),
         headers: {
