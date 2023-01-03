@@ -99,7 +99,7 @@ app.use((error, req, res, next) => {
 });
 
 const protocol = http;
-const port = process.env.BACKEND_PORT;
+const port = process.env.BACKEND_PORT || 4000;
 
 protocol
   .createServer({}, app)

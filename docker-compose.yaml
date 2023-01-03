@@ -1,24 +1,17 @@
 version: '3.1'
 
 services:
-  # mongo:
-  #   image: mongo
-  #   restart: always
-  #   env_file:
-  #     - ./.env
-  #   ports:
-  #     - "27017:27017"
   backend:
+    env_file:
+      - ./.env
     build:
       context: ./
       dockerfile: Dockerfile.backend
+      args:
+        - BACKEND_PORT=${BACKEND_PORT}
     image: jmucc_backend:latest
     ports:
       - "4000:4000"
-    # depends_on:
-    #   - "mongo"
-    env_file:
-      - ./.env
   frontend:
     env_file:
       - ./.env
@@ -26,7 +19,7 @@ services:
       context: ./
       dockerfile: Dockerfile.frontend
       args:
-        - FRONTEND_PORT=${FRONTEND_PORT}
+        - PORT=${PORT}
     image: jmucc_frontend:latest
     ports:
-      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+      - "${PORT}:${PORT}"
