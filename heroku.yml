@@ -1,6 +1,6 @@
 setup:
   config:
-    env_file: .env # <-- important line
+    env_file: .env
 build:
   docker:
     frontend: ./Dockerfile.backend
