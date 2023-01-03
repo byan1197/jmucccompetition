@@ -4,10 +4,14 @@
 }
 
 body {
-  /* background: linear-gradient(#D8E1E8, #fff) no-repeat;  OLD*/
-  background-image: url("/p5.png");
-  background-repeat: repeat;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Poppins', serif;
+  background-color: #e5e5f7;
+  background-image: radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px);
+  background-size: 10px 10px;
+}
+
+body::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
 }
 
 .match-card {
@@ -18,16 +22,11 @@ body {
   transition: 0s;
   transform: translateY(-1px);
   transition-timing-function: linear;
-  color: rgb(43, 149, 214) !important;
+  color: #444cf7 !important;
   cursor: pointer;
 }
 
-.navbar {
-  font-family: 'Comfortaa', cursive;
-}
-
 .card, .navbar {
-  overflow: auto;
   background-color: white;
   border-radius: 10px;
   border: none;
@@ -48,7 +47,7 @@ body {
   transition: 0.2s;
   transform: translateY(-2px);
   transition-timing-function: ease-in;
-  color: #9E2B0E !important;
+  color: #444cf7 !important;
   cursor: pointer;
 }
 
@@ -80,7 +79,7 @@ body {
 }
 
 .App-link {
-  color: #61dafb;
+  color: #444cf7;
 }
 
 .btn-grad-primary {

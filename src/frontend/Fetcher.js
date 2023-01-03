@@ -1,175 +1,44 @@
+const baseUrl = "http://localhost:4000"
 const Fetcher = {
-    getAllMatches: function () {
-        return fetch('/api/match', {
-            method: 'GET',
-        }).then(res => res.json())
-    },
-    getJudges: function () {
-        return fetch('/api/judge', {
-            method: 'GET'
-        }).then(res => res.json())
-    },
-    submitReport: function (data) {
-        return fetch('/api/report/submit', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-    },
-    addTeam: function (data) {
-        return fetch('/api/team/create', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-    },
-    addJudge: function (data) {
-        return fetch('/api/judge/create', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-    },
-    deleteJudge: function (data) {
-        return fetch('/api/judge/delete', {
-            method: 'DELETE',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
+    getAllMatches: () => getFetch('/api/matches'),
+    getJudges: () => getFetch('/api/judges'),
+    submitReport: data => functionalFetch('/api/reports/submit', 'POST', data),
+    addTeam: data => functionalFetch('/api/teams', 'POST', data),
+    addJudge: data => functionalFetch('/api/judges', 'POST', data),
+    deleteJudge: data => functionalFetch('/api/judge/delete', 'DELETE', data),
+    deleteMatch: data => functionalFetch('/api/matches/delete', 'DELETE', data),
+    deleteTeam: data => functionalFetch('/api/teams/delete', 'DELETE', data),
+    createMatch: data => functionalFetch('/api/matches', 'POST', data),
+    matchCompletion: data => functionalFetch('/api/matches/complete', 'PATCH', data),
+    scrambleBrackets: () => functionalFetch('/api/matches/bracketize', 'POST', {}),
+    getAllTeams: () => getFetch('/api/teams'),
+    getAllNonDivisionedTeams: () => getFetch('/api/teams/nondiv'),
+    getAllDivisions: () => getFetch('/api/divisions'),
+    getAllVisibleDivisions: () => getFetch('/api/divisions/visible'),
+    createNewDivision: data => functionalFetch('/api/divisions', 'POST', data),
+    toggleDivisionVisibility: data => functionalFetch('/api/divisions/vis', 'PATCH', data),
+    submitRankings: data => functionalFetch('/api/divisions/rank', 'POST', data),
+    getRankings: () => getFetch('/api/divisions/rankings'),
+    deleteDivision: data => functionalFetch('/api/divisions/delete', 'DELETE', data),
+    getAllReports: () => getFetch('/api/reports'),
+    clearDb: () => functionalFetch('/api/db/dropall', 'DELETE', {}),
+    auth: () => getFetch('/api/auth')
+}
 
-    },
-    deleteMatch: function (data) {
-        return fetch('/api/match/delete', {
-            method: 'DELETE',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-    },
-    deleteTeam: function (data) {
-        return fetch('/api/team/delete', {
-            method: 'DELETE',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-    },
-    createMatch: function (data) {
-        return fetch('/api/match/create', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
+function getFetch(path) {
+    return fetch(`${baseUrl}${path}`, {
+        method: 'GET'
+    }).then(res => res.json())
+}
 
-    },
-    matchCompletion: function (data) {
-        return fetch('/api/match/complete', {
-            method: 'PATCH',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-    },
-    scrambleBrackets: function () {
-        return fetch('/api/match/bracketize', {
-            method: 'POST',
-            body: JSON.stringify({}),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-    },
-    getAllTeams: function () {
-        return fetch('/api/team', {
-            method: 'GET'
-        }).then(res => res.json())
-    },
-    getAllNonDivisionedTeams: function () {
-        return fetch('/api/team/nondiv', {
-            method: 'GET'
-        }).then(res => res.json())
-    },
-    getAllDivisions: function () {
-        return fetch('/api/division', {
-            method: 'GET'
-        }).then(res => res.json())
-    },
-    getAllVisibleDivisions: function () {
-        return fetch('/api/division/getvisible', {
-            method: 'GET'
-        }).then(res => res.json())
-    },
-    createNewDivision: function (data) {
-        return fetch('/api/division/create', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-    },
-    toggleDivisionVisibility: function (data) {
-        return fetch('/api/division/vis', {
-            method: 'PATCH',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-    },
-    submitRankings: function (data) {
-        return fetch('/api/division/rank', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-    },
-    getRankings: function () {
-        return fetch('/api/division/rankings', {
-            method: 'GET'
-        }).then(res => res.json());
-    },
-    deleteDivision: function (data) {
-        return fetch('/api/division/delete', {
-            method: 'DELETE',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-    },
-    getAllReports: function () {
-        return fetch('/api/report', {
-            method: 'GET'
-        }).then(res => res.json())
-    },
-    clearDb: function () {
-        return fetch('/api/db/dropall', {
-            method: 'DELETE'
-        }).then(res => res.json())
-
-    },
-    auth: function () {
-        return fetch('/api/auth', {
-            method: 'GET'
-        }).then(res => res.json())
-
-    }
+function functionalFetch(path, method, body) {
+    return fetch(`${baseUrl}${path}`, {
+        method,
+        body: JSON.stringify(body),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json())
 }
 
 export default Fetcher;

@@ -16,8 +16,6 @@ const judgeRoutes = require("./api/routes/Judge");
 const divisionRoutes = require("./api/routes/Division");
 require("dotenv").config();
 
-console.log('environment var', JSON.stringify(process.env, null, 2))
-
 // MONGO
 mongoose.connect(process.env.mongourl, {
   useNewUrlParser: true,
@@ -56,11 +54,11 @@ if (env === "production") app.use(express.static("build"));
 // END OF EXPRESS USE
 
 //ROUTES
-app.use("/api/team", teamRoutes);
-app.use("/api/report", reportRoutes);
-app.use("/api/match", matchRoutes);
-app.use("/api/judge", judgeRoutes);
-app.use("/api/division", divisionRoutes);
+app.use("/api/teams", teamRoutes);
+app.use("/api/reports", reportRoutes);
+app.use("/api/matches", matchRoutes);
+app.use("/api/judges", judgeRoutes);
+app.use("/api/divisions", divisionRoutes);
 app.delete("/api/db/dropall", (req, res) => {
   mongoose
     .createConnection(process.env.mongourl)
@@ -100,9 +98,8 @@ app.use((error, req, res, next) => {
   });
 });
 
-/* ACTUAL SERVER STUFFS */
-var protocol = http;
-var port = env === "production" ? process.env.PORT : 4000;
+const protocol = http;
+const port = process.env.BACKEND_PORT;
 
 protocol
   .createServer({}, app)

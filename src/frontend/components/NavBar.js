@@ -37,7 +37,7 @@ class NavBar extends Component {
         return (
             <div>
                 <Navbar className='shadow' fixed='top' color="light" light expand="md">
-                    <NavbarBrand style={{ color: '#D13913' }} href="/">JMUCC Scoring System</NavbarBrand>
+                    <NavbarBrand style={{ color: '#444cf7' }} href="/">JMUCC Scoring System</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>

@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
         })
 });
 
-router.get('/getvisible', (req, res) => {
+router.get('/visible', (req, res) => {
     Division.find()
         .populate("teams")
         .exec((err, docs) => {
@@ -37,7 +37,7 @@ router.get('/reports', (req, res) => {
         })
 });
 
-router.post('/create', (req, res) => {
+router.post('/', (req, res) => {
 
     var body = req.body
 
