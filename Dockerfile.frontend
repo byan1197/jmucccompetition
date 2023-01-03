@@ -1,10 +1,10 @@
 FROM node:16-alpine 
 WORKDIR /app
 COPY . .
-COPY ./src/frontend/webserver.js .
+COPY ./src/webserver/serve.js .
 RUN yarn install --frozen-lockfile
 RUN yarn build
 ENV NODE_ENV production
 EXPOSE $PORT
 # CMD npx serve -s build -l $PORT
-CMD node webserver.js
+CMD node serve.js
