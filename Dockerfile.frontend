@@ -5,4 +5,4 @@ RUN yarn install --frozen-lockfile
 RUN yarn build
 ENV NODE_ENV production
 EXPOSE $PORT
-ENTRYPOINT npx serve -s build -l $PORT
+CMD npx serve -s build -l $PORT
