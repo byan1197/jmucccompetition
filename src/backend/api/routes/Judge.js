@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
         })
 })
 
-router.post('/create', (req, res) => {
+router.post('/', (req, res) => {
     Judge.find({
         judgeName: req.body.judgeName
     }).exec((err, judges) => {

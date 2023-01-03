@@ -36,9 +36,8 @@ router.get('/nondiv', (req, res) => {
         })
 })
 
-router.post('/create', (req, res) => {
-
-    var where = {
+router.post('/', async (req, res) => {
+    let where = {
         $or: [
             {
                 teamName: req.body.teamName
@@ -49,34 +48,27 @@ router.post('/create', (req, res) => {
         ]
     }
 
-    Team.find(where).exec((err, docs) => {
+    let currentTeams = await Team.find(where).catch(e => {
+        return res.status(500).json({ error: err })
+    });
 
-        if (err)
-            return res.status(400).json({ error: err })
-
-        if (docs.length !== 0)
-            return res.status(500).json({
-                error: { message: 'Team already exists' }
-            })
-
-        const team = new Team({
-            _id: new mongoose.Types.ObjectId(),
-            teamName: req.body.teamName,
-            judgeName: req.body.judgeName,
+    if (currentTeams.length !== 0)
+        return res.status(400).json({
+            error: { message: 'Team already exists' }
         })
-
-        team.save()
-            .then(result => {
-                res.status(201).json({
-                    success: { message: 'Team created' }
-                });
-            })
-            .catch(err => {
-                res.status(500).json({
-                    error: { message: 'Invalid fields entered' }
-                })
-            })
+    const team = new Team({
+        ...req.body,
+        _id: new mongoose.Types.ObjectId(),
     })
+    await team.save().catch(e => {
+        res.status(500).json({
+            error: { message: 'Error during team save' }
+        })
+    });
+
+    return res.status(201).json({
+        success: { message: 'Team created' }
+    });
 });
 
 router.patch('/update', (req, res) => {

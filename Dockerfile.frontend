@@ -4,6 +4,7 @@ COPY . .
 RUN yarn install --frozen-lockfile
 RUN yarn build
 ENV NODE_ENV production
-EXPOSE 3000
+ARG FRONTEND_PORT=3000
+EXPOSE $FRONTEND_PORT
 # Start the app
 CMD [ "npx", "serve", "build" ]

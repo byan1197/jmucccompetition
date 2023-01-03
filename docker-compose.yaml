@@ -20,9 +20,13 @@ services:
     env_file:
       - ./.env
   frontend:
+    env_file:
+      - ./.env
     build:
       context: ./
       dockerfile: Dockerfile.frontend
+      args:
+        - FRONTEND_PORT=${FRONTEND_PORT}
     image: jmucc_frontend:latest
     ports:
-      - "3000:3000"
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"

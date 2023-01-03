@@ -16,12 +16,9 @@ router.get('/', (req, res) => {
         })
 })
 
-router.post('/create', (req, res) => {
-
-    var teamIds = [];
-
+router.post('/', (req, res) => {
     if (req.body.team1Name === req.body.team2Name)
-        return res.status(500).json({
+        return res.status(400).json({
             error: { message: 'Both teams cannot be the same' }
         });
 

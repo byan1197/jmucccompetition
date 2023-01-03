@@ -54,11 +54,11 @@ if (env === "production") app.use(express.static("build"));
 // END OF EXPRESS USE
 
 //ROUTES
-app.use("/api/team", teamRoutes);
-app.use("/api/report", reportRoutes);
-app.use("/api/match", matchRoutes);
-app.use("/api/judge", judgeRoutes);
-app.use("/api/division", divisionRoutes);
+app.use("/api/teams", teamRoutes);
+app.use("/api/reports", reportRoutes);
+app.use("/api/matches", matchRoutes);
+app.use("/api/judges", judgeRoutes);
+app.use("/api/divisions", divisionRoutes);
 app.delete("/api/db/dropall", (req, res) => {
   mongoose
     .createConnection(process.env.mongourl)
