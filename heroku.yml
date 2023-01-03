@@ -2,8 +2,6 @@ setup:
   config:
     env_file: .env # <-- important line
 build:
-  config:
-    FRONTEND_PORT: ${FRONTEND_PORT}
   docker:
     frontend: ./Dockerfile.backend
     backend: ./Dockerfile.frontend
