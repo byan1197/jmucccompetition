@@ -4,6 +4,6 @@ COPY . .
 RUN yarn install --frozen-lockfile
 RUN yarn build
 ENV NODE_ENV production
-EXPOSE 4000
+EXPOSE $BACKEND_PORT
 # Start the app
 CMD [ "node", "src/backend/server.js" ]
